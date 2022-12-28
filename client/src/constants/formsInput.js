@@ -29,7 +29,7 @@ export const registerInputs = [
   {
     type: "text",
     placeholder: "Instituição",
-    name: "organisation",
+    name: "organization",
   },
   {
     type: "email",
@@ -43,6 +43,6 @@ export const registerInputs = [
   },
   {
     type: "submit",
-    value: "Login",
+    value: "Cadastrar",
   },
 ];
