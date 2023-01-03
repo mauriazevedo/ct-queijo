@@ -1,7 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
+const encryptPassword = require("encrypt-password");
 const addUser = require("./../db/users/users.addUser");
 
 router.post("/", function (req, res) {
@@ -12,10 +11,8 @@ router.post("/", function (req, res) {
   const organization = req.body.organization;
   const email = req.body.email;
   const password = req.body.password;
-
-  bcrypt.hash(password, saltRounds, function (err, hash) {
-    addUser(name, lastname, organization, email, hash, res);
-  });
+  const hash = encryptPassword(password, "hs278ty817jsh");
+  addUser(name, lastname, organization, email, hash, res);
 });
 
 module.exports = router;
