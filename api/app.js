@@ -7,6 +7,7 @@ const cors = require("cors");
 
 var testAPIRouter = require("./routes/testAPI");
 var addUserRouter = require("./routes/addUser");
+var login = require("./routes/login");
 
 var app = express();
 
@@ -31,8 +32,10 @@ app.use(logger("dev"));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
+// routes
 app.use("/testAPI", testAPIRouter);
 app.use("/add-user", addUserRouter);
+app.use("/login", login);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
