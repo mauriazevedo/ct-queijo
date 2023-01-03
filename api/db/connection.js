@@ -1,5 +1,5 @@
 const mysql = require("mysql2");
-function execSQLQuery(sqlQry, res) {
+function execSQLQuery(sqlQry, res, callback) {
   const connection = mysql.createConnection({
     host: "localhost",
     port: 3306,
@@ -10,9 +10,10 @@ function execSQLQuery(sqlQry, res) {
 
   connection.query(sqlQry, (error, results, fields) => {
     if (error) res.json(error);
-    else res.json(results);
+    else {
+      res.json(results);
+    }
     connection.end();
-    console.log("executou!");
   });
 }
 
