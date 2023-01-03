@@ -3,13 +3,22 @@ import Axios from "axios";
 
 export async function AddUser(data) {
   console.log(data);
-  await Axios.post(`${API_URL}add-user`, {
+  const result = await Axios.post(`${API_URL}add-user`, {
     name: data.name,
     lastname: data.lastname,
     email: data.email,
     password: data.password,
     organization: data.organization,
-  })
-    .then((response) => ("deu bom", response))
-    .catch((error) => ("Deu ruim", error));
+  });
+
+  return result.data;
+}
+
+export async function UserLogin(data) {
+  const result = await Axios.post(`${API_URL}login`, {
+    email: data.email,
+    password: data.password,
+  });
+
+  return result.data;
 }
