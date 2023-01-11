@@ -4,6 +4,9 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 const cors = require("cors");
+const Initialize = require("./db/initialize");
+
+Initialize();
 
 var testAPIRouter = require("./routes/testAPI");
 var addUserRouter = require("./routes/addUser");
@@ -12,6 +15,7 @@ var getUserRouter = require("./routes/getUser");
 var addOrderRouter = require("./routes/addOrder");
 var getOrdersRouter = require("./routes/getOrders");
 var getOrdersbyStatusRouter = require("./routes/getOrdersByStatus");
+var updateOrderStatusRouter = require("./routes/updateOrderStatus");
 
 var app = express();
 
@@ -44,6 +48,7 @@ app.use("/user/:id", getUserRouter);
 app.use("/add-order", addOrderRouter);
 app.use("/get-orders/:id", getOrdersRouter);
 app.use("/get-orders-by-status/:status", getOrdersbyStatusRouter);
+app.use("/update-order-status", updateOrderStatusRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
