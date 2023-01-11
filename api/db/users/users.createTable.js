@@ -1,4 +1,4 @@
-function CreateUserTable(conn) {
+function CreateUsersTable(conn) {
   const sql =
     "CREATE TABLE IF NOT EXISTS users (" +
     "`user_id` INT NOT NULL AUTO_INCREMENT," +
