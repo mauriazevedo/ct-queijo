@@ -28,7 +28,11 @@ function Dashboard() {
     <>
       <DashboardHeader />
       <DashboardNav content={content} setContent={setContent} />
-      <DashboardContent user={currentuser} content={content} />
+      <DashboardContent
+        user={currentuser}
+        setContent={setContent}
+        content={content}
+      />
     </>
   );
 }

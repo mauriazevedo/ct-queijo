@@ -3,7 +3,7 @@ import { AddOrder } from "../../services/orders";
 import { Form, ContentContainer } from "./style";
 import { useNavigate } from "react-router-dom";
 
-function RequestContent({ user }) {
+function RequestContent({ user, setContent }) {
   const [dateInput, setDateInput] = useState("text");
   const navigation = useRef(useNavigate());
   const formInputs = [
@@ -75,7 +75,7 @@ function RequestContent({ user }) {
     if (result?.code !== undefined) {
       navigation.current("/dashboard");
     } else {
-      navigation.current("/dashboard");
+      setContent(1);
     }
   };
 
