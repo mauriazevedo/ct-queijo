@@ -9,8 +9,9 @@ function execSQLQuery(sqlQry, res, callback) {
   });
 
   connection.query(sqlQry, (error, results, fields) => {
-    if (error) res.json(error);
-    else {
+    if (error) {
+      res.json(error);
+    } else {
       res.json(results);
     }
     connection.end();
