@@ -7,6 +7,7 @@ function CreateOrdersTable(conn) {
     "`order_dulce_de_lechet_amount` INT NOT NULL," +
     "`order_yougurt_amount` INT NOT NULL," +
     "`order_deadline_datetime` DATETIME NOT NULL," +
+    "`order_reason` MEDIUMTEXT NOT NULL," +
     "`order_status` VARCHAR(45) NOT NULL DEFAULT 'under_review'," +
     "PRIMARY KEY (`order_id`)," +
     "CONSTRAINT `fk_user_id`" +
