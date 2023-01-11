@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react";
 import { AddUser, UserLogin } from "../../services/users";
 import { ErrorMessage, Form } from "./style";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function FormComponent({ inputs, title }) {
   const [errorMessage, setErrorMessage] = useState(null);
@@ -60,6 +60,11 @@ function FormComponent({ inputs, title }) {
           />
         );
       })}
+      {title === "Login" ? (
+        <Link to="/register">Não possui conta? Cadastre-se</Link>
+      ) : (
+        <Link to="/login">Já possui conta? Entre aqui</Link>
+      )}
       {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
     </Form>
   );
