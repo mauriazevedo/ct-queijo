@@ -25,3 +25,13 @@ export async function GetOrdersByStatus(status) {
 
   return result.data;
 }
+
+export async function UpdateOrderStatus(data) {
+  const result = await Axios.patch(`${API_URL}update-order-status`, {
+    order_id: data.order_id,
+    message: data.message,
+    new_status: data.new_status,
+  });
+
+  return result.data;
+}
