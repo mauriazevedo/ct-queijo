@@ -11,7 +11,10 @@ router.post("/", function (req, res) {
   const organization = req.body.organization;
   const email = req.body.email;
   const password = req.body.password;
-  const hash = encryptPassword(password, "hs278ty817jsh");
+  const hash = encryptPassword(password, {
+    min: 1,
+    signature: "hs278ty817jsh",
+  });
   addUser(name, lastname, organization, email, hash, res);
 });
 
