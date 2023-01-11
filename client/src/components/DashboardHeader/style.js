@@ -9,6 +9,14 @@ export const HeaderContainer = styled.div`
   align-items: center;
   padding: 10px 20px;
   box-sizing: border-box;
+
+  h2 {
+    cursor: pointer;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
 `;
 
 export const LogoContainer = styled.div`
