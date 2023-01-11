@@ -19,3 +19,9 @@ export async function GetOrdersById(id) {
 
   return result.data;
 }
+
+export async function GetOrdersByStatus(status) {
+  const result = await Axios.get(`${API_URL}get-orders-by-status/${status}`);
+
+  return result.data;
+}
