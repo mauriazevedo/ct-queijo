@@ -44,3 +44,11 @@ export const Form = styled.form`
     }
   }
 `;
+
+export const ErrorMessage = styled.small`
+  color: red;
+  padding: 20px;
+  border: 1px solid red;
+  border-radius: 3px;
+  width: 100%;
+`;

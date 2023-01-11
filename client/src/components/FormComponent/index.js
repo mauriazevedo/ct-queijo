@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import { AddUser, UserLogin } from "../../services/users";
-import { Form } from "./style";
+import { ErrorMessage, Form } from "./style";
+import { useNavigate } from "react-router-dom";
 
 function FormComponent({ inputs, title }) {
+  const [errorMessage, setErrorMessage] = useState(null);
+  const navigation = useRef(useNavigate());
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -15,14 +18,30 @@ function FormComponent({ inputs, title }) {
         password: event.target.elements.password?.value,
       };
 
-      console.log(await AddUser(data));
+      const result = await AddUser(data);
+      if (result?.code === "ER_DUP_ENTRY") {
+        setErrorMessage("E-mail já cadastrado");
+      } else {
+        localStorage.setItem("user_id", result.insertId);
+        setErrorMessage(null);
+        navigation.current("/dashboard");
+      }
     } else if (title == "Login") {
       const data = {
         email: event.target.elements.email?.value,
         password: event.target.elements.password?.value,
       };
 
-      console.log(await UserLogin(data));
+      const result = await UserLogin(data);
+      console.log("resultado", result[0]?.user_id);
+      const userId = result[0]?.user_id;
+      if (userId) {
+        localStorage.setItem("user_id", result.insertId);
+        setErrorMessage(null);
+        navigation.current("/dashboard");
+      } else {
+        setErrorMessage("E-mail ou senha inválido(s)");
+      }
     }
   };
 
@@ -41,6 +60,7 @@ function FormComponent({ inputs, title }) {
           />
         );
       })}
+      {errorMessage ? <ErrorMessage>{errorMessage}</ErrorMessage> : null}
     </Form>
   );
 }
