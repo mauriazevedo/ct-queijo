@@ -1,6 +1,6 @@
 var express = require("express");
 var router = express.Router();
-const AddOrder = require("../db/orders/orders.addOrder");
+const AddOrder = require("../db/orders/orders.addOrders");
 
 router.post("/", function (req, res) {
   console.log(req.body);
