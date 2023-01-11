@@ -1,3 +1,5 @@
+const encryptPassword = require("encrypt-password");
+
 function CreateUsersTable(conn) {
   const sql =
     "CREATE TABLE IF NOT EXISTS users (" +
@@ -6,7 +8,7 @@ function CreateUsersTable(conn) {
     "`user_last_name` VARCHAR(128) NOT NULL," +
     "`user_organization` VARCHAR(128) NOT NULL," +
     "`user_email` VARCHAR(128) NOT NULL UNIQUE," +
-    "`user_passwod` VARCHAR(512) NOT NULL," +
+    "`user_password` VARCHAR(512) NOT NULL," +
     "`user_type` VARCHAR(4) NULL DEFAULT 'user'," +
     "PRIMARY KEY (`user_id`)" +
     ");";
@@ -15,4 +17,19 @@ function CreateUsersTable(conn) {
     if (error) return console.log("deu pau" + error);
     console.log("Tabela de usuários criada!");
   });
+
+  const password = "admin";
+  const hash = encryptPassword(password, {
+    min: 1,
+    signature: "hs278ty817jsh",
+  });
+
+  const query = `INSERT INTO users VALUES (null, 'admin', 'admin', 'admin', 'admin@admin.com', '${hash}', 'admi')`;
+
+  conn.query(query, (error, results, fields) => {
+    if (error) return console.log("deu pau" + error);
+    console.log("Admin criado!");
+  });
 }
+
+module.exports = CreateUsersTable;
