@@ -1,26 +1,27 @@
-import React, { useRef } from "react";
-import { Container, LeftContainer, RightContainer } from "./style";
+import React from "react";
+import {
+  Container,
+  LeftContainer,
+  RedirectButtons,
+  RightContainer,
+} from "./style";
 import Logo from "../../components/Logo";
-import FormComponent from "../../components/FormComponent";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Homepage() {
-  const navigation = useRef(useNavigate());
-  const inputs = [
-    {
-      type: "text",
-      placeholder: "Login",
-      value: "email",
-    },
-  ];
   return (
     <Container>
       <LeftContainer>
         <Logo size={100} />
       </LeftContainer>
       <RightContainer>
-        <FormComponent inputs={inputs} title={"Login"} />
-        <button onClick={() => navigation.current("/dashboard")} />
+        <h1>Bem vindo ao CT do Queijo! O que deseja fazer?</h1>
+        <Link to="/login">
+          <RedirectButtons>Fazer login</RedirectButtons>
+        </Link>
+        <Link to="/register">
+          <RedirectButtons>Cadastrar-se</RedirectButtons>
+        </Link>
       </RightContainer>
     </Container>
   );
