@@ -1,46 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import { AddOrder } from "../../services/orders";
 import { Form, ContentContainer } from "./style";
+import { useNavigate } from "react-router-dom";
 
 function RequestContent({ user }) {
   const [dateInput, setDateInput] = useState("text");
+  const navigation = useRef(useNavigate());
   const formInputs = [
     {
       type: "text",
-      name: "Nome",
+      name: "name",
       value: user?.user_name,
       disabled: true,
+      label: "Nome",
     },
     {
       type: "text",
-      name: "Instituição",
+      name: "organization",
       value: user?.user_organization,
       disabled: true,
+      label: "Instituição",
     },
     {
       type: "email",
-      name: "E-mail",
+      name: "email",
       value: user?.user_email,
       disabled: true,
+      label: "E-mail",
     },
     {
       type: "number",
-      name: "Queijo Coalho (em Kg)",
+      name: "cheese_amount",
+      label: "Queijo (em Kg)",
     },
     {
       type: "number",
-      name: "Doce de leite (em Kg)",
+      name: "dulce_de_leche_amount",
+      label: "Doce de leite (em Kg)",
     },
     {
       type: "number",
-      name: "Iogurte (em L)",
+      name: "yougurt_amount",
+      label: "Iogurte (em L)",
     },
     {
       type: "datetime-local",
-      name: "Data de entrega",
+      name: "deadline",
+      label: "Data e hora para recebimento",
     },
     {
       type: "textarea",
-      name: "Motivo da solicitação",
+      name: "reason",
+      label: "Motivo da solicitação",
     },
     {
       type: "submit",
@@ -48,9 +59,29 @@ function RequestContent({ user }) {
     },
   ];
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const userId = localStorage.getItem("user_id");
+    const data = {
+      user_id: userId,
+      cheese_amount: event.target.elements.cheese_amount?.value,
+      dulce_de_leche_amount: event.target.elements.dulce_de_leche_amount?.value,
+      yogurt_amount: event.target.elements.yougurt_amount?.value,
+      deadline: event.target.elements.deadline?.value,
+      reason: event.target.elements.reason?.value,
+    };
+
+    const result = await AddOrder(data).then((response) => response);
+    if (result?.code !== undefined) {
+      navigation.current("/dashboard");
+    } else {
+      navigation.current("/dashboard");
+    }
+  };
+
   function HandleFormInputs(inputs) {
     return (
-      <Form>
+      <Form onSubmit={handleSubmit}>
         <h3>
           Olá, {user?.user_name}! Aqui você pode fazer uma nova solicitação ao
           CT-Queijo.
@@ -59,40 +90,51 @@ function RequestContent({ user }) {
           if (item.type === "text") {
             return (
               <>
-                <p>{item.name}</p>
+                <p>{item.label}</p>
                 <input
                   type={item.type}
+                  name={item.name}
                   defaultValue={item.value}
                   disabled={item.disabled}
                   key={index}
+                  required={true}
                 />
               </>
             );
           } else if (item.type === "email") {
             return (
               <>
-                <p>{item.name}</p>
+                <p>{item.label}</p>
                 <input
                   type={item.type}
+                  name={item.name}
                   defaultValue={item.value}
                   disabled={item.disabled}
                   key={index}
+                  required={true}
                 />
               </>
             );
           } else if (item.type === "number") {
             return (
               <>
-                <p>{item.name}</p>
-                <input type={item.type} key={index} />
+                <p>{item.label}</p>
+                <input
+                  type={item.type}
+                  key={index}
+                  name={item.name}
+                  required={true}
+                />
               </>
             );
           } else if (item.type === "datetime-local") {
             return (
               <>
-                <p>{item.name}</p>
+                <p>{item.label}</p>
                 <input
                   type={dateInput}
+                  name={item.name}
+                  required={true}
                   onClick={() => setDateInput(item.type)}
                   key={index}
                 />
@@ -101,8 +143,8 @@ function RequestContent({ user }) {
           } else if (item.type === "textarea") {
             return (
               <>
-                <p>{item.name}</p>
-                <textarea key={index} />
+                <p>{item.label}</p>
+                <textarea key={index} name={item.name} required={true} />
               </>
             );
           } else {
