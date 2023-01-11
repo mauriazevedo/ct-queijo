@@ -22,3 +22,9 @@ export async function UserLogin(data) {
 
   return result.data;
 }
+
+export async function GetUserById(id) {
+  const result = await Axios.get(`${API_URL}user/${id}`);
+
+  return result.data[0];
+}
