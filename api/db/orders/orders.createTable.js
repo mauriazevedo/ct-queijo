@@ -8,6 +8,7 @@ function CreateOrdersTable(conn) {
     "`order_yougurt_amount` INT NOT NULL," +
     "`order_deadline_datetime` DATETIME NOT NULL," +
     "`order_reason` MEDIUMTEXT NOT NULL," +
+    "`order_return` MEDIUMTEXT DEFAULT NULL," +
     "`order_status` VARCHAR(45) NOT NULL DEFAULT 'under_review'," +
     "PRIMARY KEY (`order_id`)," +
     "CONSTRAINT `fk_user_id`" +
