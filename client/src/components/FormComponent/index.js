@@ -36,7 +36,7 @@ function FormComponent({ inputs, title }) {
       console.log("resultado", result[0]?.user_id);
       const userId = result[0]?.user_id;
       if (userId) {
-        localStorage.setItem("user_id", result.insertId);
+        localStorage.setItem("user_id", userId);
         setErrorMessage(null);
         navigation.current("/dashboard");
       } else {
