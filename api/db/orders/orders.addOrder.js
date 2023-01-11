@@ -6,9 +6,10 @@ function AddOrder(
   dulceDeLecheAmount,
   yogurtAmount,
   deadline,
+  reason,
   res
 ) {
-  const query = `INSERT INTO orders VALUES (null, '${userId}', '${cheeseAmout}', '${dulceDeLecheAmount}', '${yogurtAmount}', '${deadline}', DEFAULT)`;
+  const query = `INSERT INTO orders VALUES (null, '${userId}', '${cheeseAmout}', '${dulceDeLecheAmount}', '${yogurtAmount}', '${deadline}', '${reason}', DEFAULT)`;
 
   execSQLQuery(query, res);
 }

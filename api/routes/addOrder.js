@@ -10,6 +10,7 @@ router.post("/", function (req, res) {
   const dulceDeLecheAmount = req.body.dulce_de_leche_amount;
   const yogurtAmount = req.body.yogurt_amount;
   const deadline = req.body.deadline;
+  const reason = req.body.reason;
 
   AddOrder(
     userId,
@@ -17,6 +18,7 @@ router.post("/", function (req, res) {
     dulceDeLecheAmount,
     yogurtAmount,
     deadline,
+    reason,
     res
   );
 });
